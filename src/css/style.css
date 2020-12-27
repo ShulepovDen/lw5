@@ -1,0 +1,27 @@
+.result-table {
+  border: 1px solid grey;
+}
+
+.table-header {
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.table-column {
+  border: 1px solid grey;
+  text-align: center;
+}
+
+.table-column__input {
+  text-align: center;
+  background: transparent;
+  border: none;
+}
+
+.table-column__input:focus {
+  outline: none;
+}
+
+.result {
+  text-align: right;
+}
