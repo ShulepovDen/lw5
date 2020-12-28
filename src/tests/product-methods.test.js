@@ -153,7 +153,7 @@ test('check receipt of the full value of the goods', () => {
       priceTotal: 1000,
     },
   ];
-  const resultTotal = moduleProduct.setResulTotal(productElements);
+  const resultTotal = moduleProduct.setResultTotal(productElements);
   expect(resultTotal).toEqual(5000);
   expect(resultTotal).not.toEqual('n');
   expect(resultTotal).not.toEqual(10);

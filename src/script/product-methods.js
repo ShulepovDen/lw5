@@ -12,6 +12,6 @@ export function setCountProduct(product, countProduct) {
 export function setPriceForOneProduct(product, PriceForOneProduct) {
   product.priceForOne = PriceForOneProduct;
 }
-export function setResulTotal(list) {
+export function setResultTotal(list) {
   return list.map((item) => item.priceTotal).reduce(reducer);
 }

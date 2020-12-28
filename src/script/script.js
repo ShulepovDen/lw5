@@ -7,7 +7,7 @@ import {
   setNameProduct,
   setCountProduct,
   setPriceForOneProduct,
-  setResulTotal,
+  setResultTotal,
 } from './product-methods';
 import { createObservableObject, createObservableArray } from '../utils/helpers/core';
 
@@ -43,7 +43,7 @@ window.onload = function upload() {
     productsList.forEach((element) => {
       element.priceTotal = countTotal(element);
     });
-    resultTotal = setResulTotal(productsList);
+    resultTotal = setResultTotal(productsList);
     const source = document.getElementById('store-template').innerHTML;
     const template = Handlebars.compile(source);
 
