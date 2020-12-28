@@ -40,6 +40,10 @@ test('check receipt of the count of each item', () => {
   expect(productElements[0].count).not.toEqual('');
   expect(productElements[1].count).not.toEqual('');
   expect(productElements[2].count).not.toEqual('');
+  expect(productElements[2].count).not.toEqual(null);
+  expect(productElements[2].count).not.toEqual({});
+  expect(productElements[2].count).not.toEqual([]);
+  expect(productElements[2].count).not.toEqual();
 });
 test('check price invoice of each item', () => {
   const productElements = [
@@ -80,6 +84,10 @@ test('check price invoice of each item', () => {
   expect(firstTotal).not.toBe('');
   expect(secondTotal).not.toBe('');
   expect(thirdTotal).not.toBe('');
+  expect(thirdTotal).not.toBe(null);
+  expect(thirdTotal).not.toBe({});
+  expect(thirdTotal).not.toBe([]);
+  expect(thirdTotal).not.toBe();
 });
 test('check receipt of the price of each item', () => {
   const productElements = [
@@ -123,6 +131,10 @@ test('check receipt of the price of each item', () => {
   expect(productElements[0].priceForOne).not.toEqual('');
   expect(productElements[1].priceForOne).not.toEqual('');
   expect(productElements[2].priceForOne).not.toEqual('');
+  expect(productElements[2].priceForOne).not.toEqual(null);
+  expect(productElements[2].priceForOne).not.toEqual({});
+  expect(productElements[2].priceForOne).not.toEqual([]);
+  expect(productElements[2].priceForOne).not.toEqual();
 });
 test('check receipt of the full value of the goods', () => {
   const productElements = [
@@ -153,6 +165,10 @@ test('check receipt of the full value of the goods', () => {
   expect(resultTotal).not.toEqual('n');
   expect(resultTotal).not.toEqual(10);
   expect(resultTotal).not.toEqual('');
+  expect(resultTotal).not.toEqual(null);
+  expect(resultTotal).not.toEqual({});
+  expect(resultTotal).not.toEqual([]);
+  expect(resultTotal).not.toEqual();
 });
 test('check receipt of the name of the goods', () => {
   const productElements = [
@@ -193,4 +209,8 @@ test('check receipt of the name of the goods', () => {
   expect(productElements[2].name).not.toEqual('n');
   expect(productElements[2].name).not.toEqual(10);
   expect(productElements[2].name).not.toEqual('');
+  expect(productElements[2].name).not.toEqual(null);
+  expect(productElements[2].name).not.toEqual({});
+  expect(productElements[2].name).not.toEqual([]);
+  expect(productElements[2].name).not.toEqual();
 });

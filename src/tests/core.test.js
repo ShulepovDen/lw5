@@ -51,4 +51,8 @@ test('checking the created Observable Array', () => {
   expect(resultList[2].count).not.toEqual('n');
   expect(resultList[2].count).not.toEqual('');
   expect(resultList[2].name).not.toEqual(1);
+  expect(resultList[2].name).not.toEqual(null);
+  expect(resultList[2].name).not.toEqual({});
+  expect(resultList[2].name).not.toEqual([]);
+  expect(resultList[2].name).not.toEqual();
 });
