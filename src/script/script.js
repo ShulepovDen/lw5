@@ -4,38 +4,13 @@
 /* eslint-disable no-undef */
 import {
   countTotal,
+  setNameProduct,
   setCountProduct,
   setPriceForOneProduct,
   setResulTotal,
-} from './scriptFunctional';
+} from './product-methods';
+import { createObservableObject, createObservableArray } from '../utils/helpers/core';
 
-function createObservableArray(array) {
-  return new Proxy(array, {
-    set() {
-      // eslint-disable-next-line no-param-reassign
-
-      return true;
-    },
-  });
-}
-function createObservableObject(array, callback) {
-  return new Proxy(array, {
-    set(target, property, value) {
-      if (property === 'count') {
-        target.count = value;
-      }
-      if (property === 'priceForOne') {
-        target.priceForOne = value;
-      }
-      if (property === 'priceTotal') {
-        target.priceTotal = value;
-        return true;
-      }
-      callback();
-      return true;
-    },
-  });
-}
 let productsList = [
   {
     id: 1,
@@ -60,10 +35,14 @@ let productsList = [
   },
 ];
 let resultTotal = 0;
-
+function checkForNumber(value) {
+  return value.match(/^\d*[.]?\d+$/);
+}
 window.onload = function upload() {
   function updateUI() {
-    countTotal(productsList);
+    productsList.forEach((element) => {
+      element.priceTotal = countTotal(element);
+    });
     resultTotal = setResulTotal(productsList);
     const source = document.getElementById('store-template').innerHTML;
     const template = Handlebars.compile(source);
@@ -75,15 +54,28 @@ window.onload = function upload() {
         event.target.readOnly = false;
       });
     });
+    const arrayOfInputName = document.getElementsByClassName('table-column__input-name');
     const arrayOfInputCount = document.getElementsByClassName('table-column__input-count');
     const arrayOfInputPriceForOne = document.getElementsByClassName(
       'table-column__input-priceForOne'
     );
+    for (let i = 0; i < arrayOfInputName.length; i += 1) {
+      arrayOfInputName[i].addEventListener('keydown', (e) => {
+        const { key } = e;
+        if (key === 'Enter') {
+          setNameProduct(productsList[i], arrayOfInputName[i].value);
+          return true;
+        }
+        return false;
+      });
+    }
     for (let i = 0; i < arrayOfInputCount.length; i += 1) {
       arrayOfInputCount[i].addEventListener('keydown', (e) => {
         const { key } = e;
         if (key === 'Enter') {
-          setCountProduct(productsList[i], arrayOfInputCount[i].value);
+          if (checkForNumber(arrayOfInputCount[i].value)) {
+            setCountProduct(productsList[i], arrayOfInputCount[i].value);
+          }
           return true;
         }
         return false;
@@ -93,7 +85,9 @@ window.onload = function upload() {
       arrayOfInputPriceForOne[i].addEventListener('keydown', (e) => {
         const { key } = e;
         if (key === 'Enter') {
-          setPriceForOneProduct(productsList[i], arrayOfInputPriceForOne[i].value);
+          if (checkForNumber(arrayOfInputPriceForOne[i].value)) {
+            setPriceForOneProduct(productsList[i], arrayOfInputPriceForOne[i].value);
+          }
           return true;
         }
         return false;

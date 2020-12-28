@@ -25,7 +25,12 @@
       {{#each productsList}}
         <tr>
           <td class='table-column'>
-            {{name}}
+            <input
+              type='text'
+              class='{{id}} table-column__input-name table-column__input'
+              readonly
+              value='{{name}}'
+            />
           </td>
           <td class='table-column'>
             <input
