@@ -8,8 +8,8 @@ import {
   setCountProduct,
   setPriceForOneProduct,
   setResultTotal,
-} from './product-methods';
-import { createObservableObject, createObservableArray } from '../utils/helpers/core';
+} from './products-methods';
+import { createObservableObject, createObservableArray } from '../utils/core';
 
 let productsList = [
   {
@@ -17,7 +17,7 @@ let productsList = [
     name: 'Молоко',
     count: 50,
     priceForOne: 50,
-    priceTotal: 2000,
+    priceTotal: 2500,
   },
   {
     id: 2,
@@ -40,9 +40,6 @@ function checkForNumber(value) {
 }
 window.onload = function upload() {
   function updateUI() {
-    productsList.forEach((element) => {
-      element.priceTotal = countTotal(element);
-    });
     resultTotal = setResultTotal(productsList);
     const source = document.getElementById('store-template').innerHTML;
     const template = Handlebars.compile(source);
@@ -75,6 +72,7 @@ window.onload = function upload() {
         if (key === 'Enter') {
           if (checkForNumber(arrayOfInputCount[i].value)) {
             setCountProduct(productsList[i], arrayOfInputCount[i].value);
+            productsList[i].priceTotal = countTotal(productsList[i]);
           }
           return true;
         }
@@ -87,6 +85,7 @@ window.onload = function upload() {
         if (key === 'Enter') {
           if (checkForNumber(arrayOfInputPriceForOne[i].value)) {
             setPriceForOneProduct(productsList[i], arrayOfInputPriceForOne[i].value);
+            productsList[i].priceTotal = countTotal(productsList[i]);
           }
           return true;
         }
@@ -99,6 +98,5 @@ window.onload = function upload() {
     productsList[i] = createObservableObject(productsList[i], updateUI);
   }
   productsList = createObservableArray(productsList, updateUI);
-
   updateUI();
 };
