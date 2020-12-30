@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const productMethods = require('../utils/core');
+const productMethods = require('../utils/observable-structures');
 
 function plug() {
   return 1;
@@ -54,6 +54,13 @@ test('checking the created Observable Object', () => {
   expect((resultList[2].name = true)).not.toEqual(1);
   expect((resultList[2].name = {})).not.toEqual(1);
   expect((resultList[2].name = [])).not.toEqual(1);
+  expect(productMethods.createObservableObject(productElements[0], 1)).toEqual(false);
+  expect(productMethods.createObservableObject(1, plug)).toEqual(false);
+  expect(productMethods.createObservableObject(false, plug)).toEqual(false);
+  expect(productMethods.createObservableObject(null, plug)).toEqual(false);
+  expect(productMethods.createObservableObject(null, 1)).toEqual(false);
+  expect(productMethods.createObservableObject(productElements[0], '')).toEqual(false);
+  expect(productMethods.createObservableObject('', plug)).toEqual(false);
 });
 test('checking the created Observable Array', () => {
   const productElements = [
@@ -84,12 +91,13 @@ test('checking the created Observable Array', () => {
   resultList[1] = productMethods.createObservableObject(productElements[1], plug);
   resultList[2] = productMethods.createObservableObject(productElements[2], plug);
   resultList = productMethods.createObservableArray(resultList, plug);
-  try {
-    productMethods.createObservableArray(1, plug);
-  } catch (error) {
-    expect(error).toEqual(TypeError('Cannot create proxy with a non-object as target or handler'));
-  }
-  expect(productMethods.createObservableArray(resultList, 1)).toEqual(resultList);
+  expect(productMethods.createObservableArray(resultList, 1)).toEqual(false);
+  expect(productMethods.createObservableArray(1, plug)).toEqual(false);
+  expect(productMethods.createObservableArray(false, plug)).toEqual(false);
+  expect(productMethods.createObservableArray(null, plug)).toEqual(false);
+  expect(productMethods.createObservableArray(null, 1)).toEqual(false);
+  expect(productMethods.createObservableArray(resultList, '')).toEqual(false);
+  expect(productMethods.createObservableArray('', plug)).toEqual(false);
   resultList = 1;
   expect(resultList).toEqual(1);
   expect(resultList).not.toEqual(2);

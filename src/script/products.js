@@ -9,7 +9,7 @@ import {
   setPriceForOneProduct,
   setResultTotal,
 } from './products-methods';
-import { createObservableObject, createObservableArray } from '../utils/core';
+import { createObservableObject, createObservableArray } from '../utils/observable-structures';
 
 let productsList = [
   {

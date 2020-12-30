@@ -44,38 +44,12 @@ test('check receipt of the count of each item', () => {
   expect(productElements[2].count).not.toEqual({});
   expect(productElements[2].count).not.toEqual([]);
   expect(productElements[2].count).not.toEqual();
-  try {
-    moduleProduct.setCountProduct(NaN, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'count' on number 'NaN'"));
-  }
-  try {
-    moduleProduct.setCountProduct(true, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'count' on boolean 'true'"));
-  }
-  try {
-    moduleProduct.setCountProduct('', 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'count' on string ''"));
-  }
-  try {
-    moduleProduct.setCountProduct(null, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot set property 'count' of null"));
-  }
-  moduleProduct.setCountProduct(productElements[0], NaN);
-  expect(productElements[0].count).toBe(NaN);
-  expect(productElements[0].count).not.toBe(4);
-  moduleProduct.setCountProduct(productElements[0], '');
-  expect(productElements[0].count).toBe('');
-  expect(productElements[0].count).not.toBe(4);
-  moduleProduct.setCountProduct(productElements[0], null);
-  expect(productElements[0].count).toBe(null);
-  expect(productElements[0].count).not.toBe(4);
-  moduleProduct.setCountProduct(productElements[0], true);
-  expect(productElements[0].count).toBe(true);
-  expect(productElements[0].count).not.toBe(4);
+  expect(moduleProduct.setCountProduct(productElements[0], null)).toEqual(false);
+  expect(moduleProduct.setCountProduct(null, 1)).toEqual(false);
+  expect(moduleProduct.setCountProduct(productElements[0], false)).toEqual(false);
+  expect(moduleProduct.setCountProduct(false, 1)).toEqual(false);
+  expect(moduleProduct.setCountProduct(productElements[0], 'Nope')).toEqual(false);
+  expect(moduleProduct.setCountProduct('Nope', 4)).toEqual(false);
 });
 test('check price invoice of each item', () => {
   const productElements = [
@@ -101,7 +75,7 @@ test('check price invoice of each item', () => {
       priceTotal: 1000,
     },
   ];
-  let firstTotal = moduleProduct.countTotal(productElements[0]);
+  const firstTotal = moduleProduct.countTotal(productElements[0]);
   const secondTotal = moduleProduct.countTotal(productElements[1]);
   const thirdTotal = moduleProduct.countTotal(productElements[2]);
   expect(firstTotal).toBe(2000);
@@ -120,24 +94,10 @@ test('check price invoice of each item', () => {
   expect(thirdTotal).not.toBe({});
   expect(thirdTotal).not.toBe([]);
   expect(thirdTotal).not.toBe();
-
-  firstTotal = moduleProduct.countTotal(NaN);
-  expect(firstTotal).toBe(NaN);
-  expect(firstTotal).not.toBe(4);
-  try {
-    firstTotal = moduleProduct.countTotal(null);
-    expect(firstTotal).toBe(null);
-    expect(firstTotal).not.toBe(4);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot read property 'count' of null"));
-  }
-
-  firstTotal = moduleProduct.countTotal(true);
-  expect(firstTotal).toBe(NaN);
-  expect(firstTotal).not.toBe(4);
-  firstTotal = moduleProduct.countTotal('');
-  expect(firstTotal).toBe(NaN);
-  expect(firstTotal).not.toBe(4);
+  expect(moduleProduct.countTotal(null)).toEqual(false);
+  expect(moduleProduct.countTotal(false)).toEqual(false);
+  expect(moduleProduct.countTotal('Nope')).toEqual(false);
+  expect(moduleProduct.countTotal(2)).toEqual(false);
 });
 test('check receipt of the price of each item', () => {
   const productElements = [
@@ -185,38 +145,13 @@ test('check receipt of the price of each item', () => {
   expect(productElements[2].priceForOne).not.toEqual({});
   expect(productElements[2].priceForOne).not.toEqual([]);
   expect(productElements[2].priceForOne).not.toEqual();
-  try {
-    moduleProduct.setPriceForOneProduct(NaN, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'priceForOne' on number 'NaN'"));
-  }
-  try {
-    moduleProduct.setPriceForOneProduct(true, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'priceForOne' on boolean 'true'"));
-  }
-  try {
-    moduleProduct.setPriceForOneProduct('', 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'priceForOne' on string ''"));
-  }
-  try {
-    moduleProduct.setPriceForOneProduct(null, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot set property 'priceForOne' of null"));
-  }
-  moduleProduct.setPriceForOneProduct(productElements[0], NaN);
-  expect(productElements[0].priceForOne).toBe(NaN);
-  expect(productElements[0].priceForOne).not.toBe(4);
-  moduleProduct.setPriceForOneProduct(productElements[0], '');
-  expect(productElements[0].priceForOne).toBe('');
-  expect(productElements[0].priceForOne).not.toBe(4);
-  moduleProduct.setPriceForOneProduct(productElements[0], null);
-  expect(productElements[0].priceForOne).toBe(null);
-  expect(productElements[0].priceForOne).not.toBe(4);
-  moduleProduct.setPriceForOneProduct(productElements[0], true);
-  expect(productElements[0].priceForOne).toBe(true);
-  expect(productElements[0].priceForOne).not.toBe(4);
+  expect(moduleProduct.setPriceForOneProduct(false, 4)).toEqual(false);
+  expect(moduleProduct.setPriceForOneProduct(productElements[0], false)).toEqual(false);
+  expect(moduleProduct.setPriceForOneProduct(null, 4)).toEqual(false);
+  expect(moduleProduct.setPriceForOneProduct(productElements[0], null)).toEqual(false);
+  expect(moduleProduct.setPriceForOneProduct('Nope', 4)).toEqual(false);
+  expect(moduleProduct.setPriceForOneProduct(productElements[0], 'Nope')).toEqual(false);
+  expect(moduleProduct.setPriceForOneProduct(2, 4)).toEqual(false);
 });
 test('check receipt of the full value of the goods', () => {
   const productElements = [
@@ -242,7 +177,7 @@ test('check receipt of the full value of the goods', () => {
       priceTotal: 1000,
     },
   ];
-  let resultTotal = moduleProduct.setResultTotal(productElements);
+  const resultTotal = moduleProduct.setResultTotal(productElements);
   expect(resultTotal).toEqual(5000);
   expect(resultTotal).not.toEqual('n');
   expect(resultTotal).not.toEqual(10);
@@ -251,12 +186,10 @@ test('check receipt of the full value of the goods', () => {
   expect(resultTotal).not.toEqual({});
   expect(resultTotal).not.toEqual([]);
   expect(resultTotal).not.toEqual();
-  try {
-    resultTotal = moduleProduct.setResultTotal(NaN);
-    expect(resultTotal).toEqual(NaN);
-  } catch (error) {
-    expect(error).toEqual(TypeError('list.map is not a function'));
-  }
+  expect(moduleProduct.setResultTotal(3)).toEqual(false);
+  expect(moduleProduct.setResultTotal('Nope')).toEqual(false);
+  expect(moduleProduct.setResultTotal(false)).toEqual(false);
+  expect(moduleProduct.setResultTotal(null)).toEqual(false);
 });
 test('check receipt of the name of the goods', () => {
   const productElements = [
@@ -301,36 +234,10 @@ test('check receipt of the name of the goods', () => {
   expect(productElements[2].name).not.toEqual({});
   expect(productElements[2].name).not.toEqual([]);
   expect(productElements[2].name).not.toEqual();
-  try {
-    moduleProduct.setNameProduct(NaN, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'name' on number 'NaN'"));
-  }
-  try {
-    moduleProduct.setNameProduct(true, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'name' on boolean 'true'"));
-  }
-  try {
-    moduleProduct.setNameProduct('', 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot create property 'name' on string ''"));
-  }
-  try {
-    moduleProduct.setNameProduct(null, 1);
-  } catch (error) {
-    expect(error).toEqual(TypeError("Cannot set property 'name' of null"));
-  }
-  moduleProduct.setNameProduct(productElements[0], NaN);
-  expect(productElements[0].name).toBe(NaN);
-  expect(productElements[0].name).not.toBe(4);
-  moduleProduct.setNameProduct(productElements[0], '');
-  expect(productElements[0].name).toBe('');
-  expect(productElements[0].name).not.toBe(4);
-  moduleProduct.setNameProduct(productElements[0], null);
-  expect(productElements[0].name).toBe(null);
-  expect(productElements[0].name).not.toBe(4);
-  moduleProduct.setNameProduct(productElements[0], true);
-  expect(productElements[0].name).toBe(true);
-  expect(productElements[0].name).not.toBe(4);
+  expect(moduleProduct.setNameProduct(false, 'мясо')).toEqual(false);
+  expect(moduleProduct.setNameProduct(productElements[0], false)).toEqual(false);
+  expect(moduleProduct.setNameProduct(null, 'мясо')).toEqual(false);
+  expect(moduleProduct.setNameProduct(productElements[0], null)).toEqual(false);
+  expect(moduleProduct.setNameProduct(2, 'мясо')).toEqual(false);
+  expect(moduleProduct.setNameProduct(productElements[0], 2)).toEqual(false);
 });
