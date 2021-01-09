@@ -18,16 +18,17 @@ export function createObservableArray(array, callback) {
     },
   });
 }
-export function createObservableObject(array, callback) {
+export function createObservableObject(object, callback) {
   if (
-    typeof array !== 'object' ||
+    Array.isArray(object) ||
+    typeof object !== 'object' ||
     typeof callback !== 'function' ||
     callback === null ||
-    array === null
+    object === null
   ) {
     return false;
   }
-  return new Proxy(array, {
+  return new Proxy(object, {
     set(target, property, value) {
       target[property] = value;
       callback();
